@@ -1,0 +1,34 @@
+@import '../../../styles/variables.scss';
+
+main{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+
+
+  section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+        .main-section{
+        gap: 15px;
+        flex-grow: 1;
+        background-color: $gray-bg;
+        }
+
+    .form-section{
+          flex-grow: 0.2;
+        }
+        h2{
+          font-size: 20px;
+          font-weight: bold;
+        }
+
+}
