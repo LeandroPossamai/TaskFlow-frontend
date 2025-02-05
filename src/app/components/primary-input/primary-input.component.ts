@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-type InputTypes = 'text' | 'password' | 'email';
+type InputTypes = 'text' | 'email' | 'password';
 
 @Component({
   selector: 'app-primary-input',
@@ -11,6 +11,7 @@ type InputTypes = 'text' | 'password' | 'email';
 })
 export class PrimaryInputComponent {
   @Input() type: InputTypes = 'text';
-  @Input() formControlName: any;
+  @Input() formName: string = '';
   @Input() placeholder: string = '';
+  @Input() label: string = '';
 }
