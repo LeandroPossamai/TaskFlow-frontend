@@ -8,9 +8,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +25,12 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
-  constructor(private router: Router, private LoginService: LoginService) {
+
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private toastr: ToastrService // ✅ Toastr corretamente injetado
+  ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
@@ -35,14 +39,16 @@ export class LoginComponent {
       ]),
     });
   }
+
   submit() {
-    this.LoginService.login(
-      this.loginForm.value.email,
-      this.loginForm.value.password
-    ).subscribe({
-      next: () => {},
-    });
+    this.loginService
+      .login(this.loginForm.value.email, this.loginForm.value.password)
+      .subscribe({
+        next: () => this.toastr.success('Login feito com sucesso!', 'Sucesso'), // ✅ Agora está correto
+        error: () => this.toastr.error('Erro ao fazer login', 'Erro'), // ✅ Agora está correto
+      });
   }
+
   navigate() {
     this.router.navigate(['/signup']);
   }
