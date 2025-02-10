@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +6,28 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  constructor(private router: Router) {}
+  registros = [
+    {
+      data: '10/02/2025',
+      entrada: '08:00',
+      saida: '17:00',
+      total: '8h',
+      status: 'Completo',
+    },
+    {
+      data: '11/02/2025',
+      entrada: '09:00',
+      saida: '18:00',
+      total: '8h',
+      status: 'Atrasado',
+    },
+  ];
 
-  navegarPara(destino: string) {
-    this.router.navigate([`/${destino}`]);
+  registrarEntrada() {
+    alert('Jornada iniciada!');
+  }
+
+  registrarSaida() {
+    alert('Jornada encerrada!');
   }
 }

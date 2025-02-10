@@ -1,23 +1,29 @@
-<div class="container">
-  <h1>Bem-vindo ao Sistema de Controle de Horas</h1>
-
-  <div class="dashboard">
-    <div class="card">
-      <h2>Projetos Ativos</h2>
-      <p>3 projetos em andamento</p>
-    </div>
-
-    <div class="card">
-      <h2>Atividades</h2>
-      <p>5 atividades em execução</p>
-    </div>
-
-    <div class="card">
-      <h2>Horas Trabalhadas</h2>
-      <p>12h registradas esta semana</p>
-    </div>
+<!-- home.component.html -->
+<div class="menu-container">
+  <div class="logo">
+    <img src="../../../assets/logo-task-350.png" alt="Logo da Marca" />
   </div>
 
-  <button (click)="navegarPara('projetos')">Ver Projetos</button>
-  <button (click)="navegarPara('atividades')">Ver Atividades</button>
+  <nav class="menu">
+    <ul>
+      <li><a routerLink="/ferramentas">Ferramentas</a></li>
+      <li><a routerLink="/iniciar-sessao">Iniciar Sessão</a></li>
+      <li><a routerLink="/sobre">Sobre</a></li>
+    </ul>
+  </nav>
+</div>
+
+<div class="welcome-section">
+  <div class="welcome-message">
+    <h1>Seja bem-vindo ao Tasflow!</h1>
+    <p class="message">Seu trabalho em fluxo perfeito!</p>
+  </div>
+</div>
+
+<div class="image-container">
+  <img
+    src="../../../assets/dashboard-1.png"
+    alt="Imagem de boas-vindas"
+    class="welcome-image"
+  />
 </div>
