@@ -1,7 +1,9 @@
-import { Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { HomeComponent } from './pages/home/home.component';
+import { LancarHorasComponent } from './pages/lancar-horas/lancar-horas.component';
 
 export const routes: Routes = [
   {
@@ -15,6 +17,10 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+  },
+  {
+    path: 'lancar-horas',
+    component: LancarHorasComponent,
   },
   {
     path: '',

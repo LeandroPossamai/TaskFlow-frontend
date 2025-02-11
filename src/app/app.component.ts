@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router'; // Importando RouterModule
+import { routes } from './app.routes'; // Importando o arquivo de rotas
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  imports: [RouterModule], // Importando o RouterModule aqui
+  template: `
+    <router-outlet></router-outlet>
+    <!-- Onde as rotas serão carregadas -->
+  `,
 })
-export class AppComponent {
-  title = 'TaskFlow';
-}
+export class AppComponent {}
