@@ -15,7 +15,6 @@ interface SignupForm {
   name: FormControl;
   email: FormControl;
   password: FormControl;
-  passwordConfirm: FormControl;
 }
 
 @Component({
@@ -42,10 +41,6 @@ export class SignupComponent {
       name: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
-      passwordConfirm: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
       ]),

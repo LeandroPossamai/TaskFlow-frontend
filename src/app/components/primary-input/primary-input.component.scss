@@ -13,14 +13,14 @@
         display: flex;
 
         .icon{
-          padding: 12px;
+          padding: 4px;
           border-radius:  0 8px 8px 0;
           background-color: $primary-color;
-          height: 55px;
+          height: 39px;
 
           img{
-            width: 20px;
-            height: 20px;
+            width: 10px;
+            height: 10px;
 
           }
 
@@ -33,10 +33,11 @@
 
           padding: 12px 0 12px 20px;
           width: 100%;
-          height: 55px;
+          height: 39px;
 
         }
       }
+
 }
 
 
