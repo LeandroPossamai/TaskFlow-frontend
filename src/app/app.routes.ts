@@ -4,6 +4,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LancarHorasComponent } from './pages/lancar-horas/lancar-horas.component';
+import { TesteComponent } from './pages/teste/teste.component';
+import { AtividadesComponent } from './pages/atividade/atividade.component';
 
 export const routes: Routes = [
   {
@@ -13,6 +15,14 @@ export const routes: Routes = [
   {
     path: 'signup',
     component: SignupComponent,
+  },
+  {
+    path: 'teste',
+    component: TesteComponent,
+  },
+  {
+    path: 'atividades',
+    component: AtividadesComponent,
   },
   {
     path: 'home',

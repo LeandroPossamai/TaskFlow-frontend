@@ -1,0 +1,51 @@
+<div class="container">
+  <h2>Atividades</h2>
+
+  <form (submit)="adicionarAtividade()">
+    <input
+      type="text"
+      placeholder="Nome da atividade"
+      [(ngModel)]="novaAtividade.nome"
+      required
+    />
+    <select [(ngModel)]="novaAtividade.status">
+      <option value="" disabled selected>Status</option>
+      <option value="Pendente">Pendente</option>
+      <option value="Em andamento">Em andamento</option>
+      <option value="Concluído">Concluído</option>
+    </select>
+    <button type="submit">Adicionar</button>
+  </form>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+    <tr *ngFor="let atividade of atividades">
+      <td>{{ atividade.id }}</td>
+      <td>{{ atividade.nome }}</td>
+      <td [ngClass]="getStatusClass(atividade.status)">
+        {{ atividade.status }}
+      </td>
+      <td>
+        <button (click)="editarAtividade(atividade)">Editar</button>
+        <button (click)="excluirAtividade(atividade.id)">Excluir</button>
+      </td>
+    </tr>
+  </table>
+
+  <div *ngIf="editando">
+    <h3>Editar Atividade</h3>
+    <input type="text" [(ngModel)]="editando.nome" />
+    <select [(ngModel)]="editando.status">
+      <option value="Pendente">Pendente</option>
+      <option value="Em andamento">Em andamento</option>
+      <option value="Concluído">Concluído</option>
+    </select>
+    <button (click)="salvarEdicao()">Salvar</button>
+    <button (click)="editando = null">Cancelar</button>
+  </div>
+</div>
