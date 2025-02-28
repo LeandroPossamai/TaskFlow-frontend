@@ -1,28 +1,51 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-lancar-horas',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, ToastModule],
+  providers: [MessageService], // Importa o serviço de mensagens
   templateUrl: './lancar-horas.component.html',
-  styleUrl: './lancar-horas.component.scss',
+  styleUrls: ['./lancar-horas.component.scss'],
 })
 export class LancarHorasComponent {
+  atividades = [
+    { id: 1, nome: 'Desenvolvimento Front-end' },
+    { id: 2, nome: 'Revisão de Código' },
+    { id: 3, nome: 'Correção de Bugs' },
+  ];
+
   horasForm = new FormGroup({
-    data: new FormControl('', [Validators.required]), // Adicionando validação
-    quantidade: new FormControl('', [Validators.required, Validators.min(1)]), // Validação para horas > 0
+    atividade: new FormControl('', [Validators.required]),
+    data: new FormControl('', [Validators.required]),
+    quantidade: new FormControl('', [Validators.required, Validators.min(1)]),
   });
-  // Método para salvar os dados
+
+  constructor(private messageService: MessageService) {}
+
   salvarHoras() {
     if (this.horasForm.valid) {
-      console.log('Dados enviados:', this.horasForm.value);
-      // Aqui você pode adicionar a lógica para salvar os dados em um backend
+      console.log('Lançamento salvo:', this.horasForm.value);
+      this.horasForm.reset(); // Reseta o formulário
+
+      // Exibe a mensagem de sucesso no Toast
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso!',
+        detail: 'Horas salvas com sucesso!',
+      });
     } else {
-      console.log('Formulário inválido');
+      // Exibe um erro no Toast caso o formulário esteja inválido
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro!',
+        detail: 'Preencha todos os campos corretamente!',
+      });
     }
   }
 }

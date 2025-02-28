@@ -21,8 +21,8 @@ export const routes: Routes = [
     component: TesteComponent,
   },
   {
-    path: 'atividades',
-    component: AtividadesComponent,
+    path: 'atividades', // Rota para a página de atividades
+    component: AtividadesComponent, // Componente que será renderizado
   },
   {
     path: 'home',

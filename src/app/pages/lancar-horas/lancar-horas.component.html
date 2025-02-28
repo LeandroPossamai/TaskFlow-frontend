@@ -1,31 +1,25 @@
+<p-toast></p-toast>
 <div class="container">
-  <h2>Lançamento de Horas Trabalhadas</h2>
+  <h2>Lançamento de Horas</h2>
   <form [formGroup]="horasForm" (ngSubmit)="salvarHoras()">
-    <div class="form-group">
-      <label for="data">Data:</label>
-      <input type="date" id="data" formControlName="data" required />
-      <div
-        *ngIf="horasForm.get('data')?.invalid && horasForm.get('data')?.touched"
-        class="error-message"
-      >
-        A data é obrigatória.
-      </div>
-    </div>
+    <!-- Seleção de atividade -->
+    <label for="atividade">Atividade</label>
+    <select id="atividade" formControlName="atividade">
+      <option value="" disabled selected>Selecione uma atividade</option>
+      <option *ngFor="let atividade of atividades" [value]="atividade.id">
+        {{ atividade.nome }}
+      </option>
+    </select>
 
-    <div class="form-group">
-      <label for="horas">Horas Trabalhadas:</label>
-      <input type="number" id="horas" formControlName="quantidade" required />
-      <div
-        *ngIf="
-          horasForm.get('quantidade')?.invalid &&
-          horasForm.get('quantidade')?.touched
-        "
-        class="error-message"
-      >
-        As horas devem ser um número maior que 0.
-      </div>
-    </div>
+    <!-- Data -->
+    <label for="data">Data</label>
+    <input id="data" type="date" formControlName="data" />
 
+    <!-- Quantidade de horas -->
+    <label for="quantidade">Horas Trabalhadas</label>
+    <input id="quantidade" type="number" formControlName="quantidade" />
+
+    <!-- Botão de salvar -->
     <button type="submit" [disabled]="horasForm.invalid">Salvar</button>
   </form>
 </div>
