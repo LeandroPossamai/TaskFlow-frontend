@@ -4,11 +4,17 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { BackButtonComponent } from '../../components/back-button/back-button.component';
 
 @Component({
   selector: 'app-lancar-horas',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ToastModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ToastModule,
+    BackButtonComponent,
+  ],
   providers: [MessageService], // Importa o serviço de mensagens
   templateUrl: './lancar-horas.component.html',
   styleUrls: ['./lancar-horas.component.scss'],

@@ -8,6 +8,7 @@
       [(ngModel)]="novaAtividade.nome"
       required
     />
+
     <select [(ngModel)]="novaAtividade.status">
       <option value="" disabled selected>Status</option>
       <option value="Pendente">Pendente</option>
@@ -47,5 +48,10 @@
     </select>
     <button (click)="salvarEdicao()">Salvar</button>
     <button (click)="editando = null">Cancelar</button>
+  </div>
+
+  <!-- Adicionando o botão de voltar dentro de um container com uma classe para ajustar a posição -->
+  <div class="back-button-container">
+    <app-back-button></app-back-button>
   </div>
 </div>
