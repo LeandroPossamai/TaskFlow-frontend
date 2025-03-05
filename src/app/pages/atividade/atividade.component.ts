@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './atividade.component.html',
   styleUrls: ['./atividade.component.scss'],
 })
-export class AtividadesComponent {
+export class AtividadeComponent {
   atividades = [
     { id: 1, nome: 'Planejamento inicial', status: 'Em andamento' },
     { id: 2, nome: 'Desenvolvimento da API', status: 'Pendente' },

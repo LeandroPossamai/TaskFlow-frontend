@@ -13,12 +13,17 @@
     </div>
 
     <ul class="nav-list">
-      <li><a routerLink="/projetos" routerLinkActive="active">Projetos</a></li>
+      <li><a routerLink="projetos" routerLinkActive="active">Projetos</a></li>
       <li>
-        <a routerLink="/lançar-horas" routerLinkActive="active">Lançar Horas</a>
+        <a routerLink="../lancar-horas" routerLinkActive="active"
+          >Lançar Horas</a
+        >
       </li>
       <li>
-        <a routerLink="/relatorios" routerLinkActive="active">Relatórios</a>
+        <a routerLink="../relatorios" routerLinkActive="active">Relatórios</a>
+      </li>
+      <li>
+        <a routerLink="../atividade" routerLinkActive="active">Atividades</a>
       </li>
     </ul>
 
@@ -40,6 +45,6 @@
     </div>
 
     <router-outlet></router-outlet>
-    <!-- Exibe as páginas dinâmicas -->
+    <!-- Renderiza os componentes dinamicamente -->
   </div>
 </div>
