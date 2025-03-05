@@ -1,0 +1,57 @@
+<div class="projetos-container">
+  <h2>Gerenciar Projetos</h2>
+
+  <!-- Botão para adicionar projeto -->
+  <button class="btn btn-primary" (click)="abrirModal()">Novo Projeto</button>
+
+  <!-- Tabela de projetos -->
+  <table class="projetos-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let projeto of projetos">
+        <td>{{ projeto.id }}</td>
+        <td>{{ projeto.nome }}</td>
+        <td>
+          <button class="btn btn-edit" (click)="editarProjeto(projeto)">
+            Editar
+          </button>
+          <button class="btn btn-delete" (click)="confirmarExclusao(projeto)">
+            Excluir
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Modal para criar/editar projeto -->
+  <div class="modal" *ngIf="exibirModal">
+    <div class="modal-content">
+      <h3>{{ projetoSelecionado ? "Editar Projeto" : "Novo Projeto" }}</h3>
+      <label>Nome:</label>
+      <input type="text" [(ngModel)]="projetoSelecionado.nome" />
+      <button class="btn btn-save" (click)="salvarProjeto()">Salvar</button>
+      <button class="btn btn-cancel" (click)="fecharModal()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmação -->
+  <div class="modal" *ngIf="exibirConfirmacao">
+    <div class="modal-content">
+      <p>
+        Tem certeza que deseja excluir o projeto "{{
+          projetoSelecionado.nome
+        }}"?
+      </p>
+      <button class="btn btn-confirm" (click)="excluirProjeto()">Sim</button>
+      <button class="btn btn-cancel" (click)="exibirConfirmacao = false">
+        Não
+      </button>
+    </div>
+  </div>
+</div>

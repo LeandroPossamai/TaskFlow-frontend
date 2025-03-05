@@ -10,7 +10,7 @@ import { AvatarModule } from 'primeng/avatar';
   templateUrl: './teste.component.html',
   styleUrls: ['./teste.component.scss'],
 })
-export class TesteComponent {
+export class DashboardAdminComponent {
   constructor(private router: Router) {}
 
   logout() {
