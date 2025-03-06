@@ -1,0 +1,19 @@
+.metric-card {
+  text-align: center;
+  padding: 20px;
+}
+
+.metric-card h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.chart-container {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.chart-container mat-card {
+  flex: 1;
+}

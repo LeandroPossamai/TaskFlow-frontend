@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LancarHorasComponent } from './pages/lancar-horas/lancar-horas.component';
-import { DashboardAdminComponent } from './pages/dashboard-admin/teste.component';
+import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
 import { AtividadeComponent } from './pages/atividade/atividade.component';
 import { RelatoriosComponent } from './pages/relatorios/relatorios.component';
 import { ProjetosComponent } from './pages/projetos/projetos.component';
