@@ -5,30 +5,21 @@
 mat-sidenav {
   width: 250px;
   background-color: #f5f5f5;
+  transition: width 0.3s ease; /* Adiciona animação ao minimizar/maximizar */
 }
 
-mat-sidenav-content {
-  padding: 16px;
+mat-sidenav.sidenav-collapsed {
+  width: 64px; /* Largura quando minimizado */
 }
 
-.metric-card {
-  text-align: center;
-  padding: 20px;
-}
-
-.metric-card h1 {
-  font-size: 3rem;
-  margin: 0;
-}
-
-.chart-container {
+.sidebar-header {
   display: flex;
-  gap: 16px;
-  margin-top: 16px;
+  justify-content: flex-end;
+  padding: 8px;
 }
 
-.chart-container mat-card {
-  flex: 1;
+button.mat-icon-button {
+  margin: 8px;
 }
 
 mat-nav-list {
@@ -41,6 +32,7 @@ mat-divider {
 
 a.mat-list-item {
   color: #3f51b5;
+  white-space: nowrap; /* Evita que o texto quebre ao minimizar */
 }
 
 a.mat-list-item:hover {
@@ -49,4 +41,10 @@ a.mat-list-item:hover {
 
 mat-icon {
   margin-right: 8px;
+}
+.sidebar-toggle-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000; /* Garante que o botão fique acima de outros elementos */
 }

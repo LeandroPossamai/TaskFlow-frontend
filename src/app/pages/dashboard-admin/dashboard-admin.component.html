@@ -1,44 +1,55 @@
 <mat-sidenav-container class="sidenav-container">
   <!-- Sidebar -->
-  <mat-sidenav mode="side" opened>
+  <mat-sidenav #sidenav mode="side" opened>
+    <!-- Botão para Minimizar/Maximizar -->
+    <div class="sidebar-header">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>{{
+          sidenav.opened ? "chevron_left" : "chevron_right"
+        }}</mat-icon>
+      </button>
+    </div>
+
+    <!-- Links do Sidebar -->
     <mat-nav-list>
-      <!-- Link para o Dashboard -->
-      <a mat-list-item routerLink="/dashboard-admin">
+      <a mat-list-item routerLink="/dashboard-admin" matTooltip="Dashboard">
         <mat-icon>dashboard</mat-icon>
-        <span>Dashboard</span>
+        <span *ngIf="sidenav.opened">Dashboard</span>
       </a>
-
-      <!-- Link para Lançamento de Horas -->
-      <a mat-list-item routerLink="/hours">
+      <a mat-list-item routerLink="/hours" matTooltip="Lançar Horas">
         <mat-icon>schedule</mat-icon>
-        <span>Lançar Horas</span>
+        <span *ngIf="sidenav.opened">Lançar Horas</span>
       </a>
-
-      <!-- Link para Relatórios -->
-      <a mat-list-item routerLink="/reports">
+      <a mat-list-item routerLink="/reports" matTooltip="Relatórios">
         <mat-icon>assessment</mat-icon>
-        <span>Relatórios</span>
+        <span *ngIf="sidenav.opened">Relatórios</span>
       </a>
-
-      <!-- Link para Criar Usuário -->
-      <a mat-list-item routerLink="/create-user">
+      <a mat-list-item routerLink="/create-user" matTooltip="Criar Usuário">
         <mat-icon>person_add</mat-icon>
-        <span>Criar Usuário</span>
+        <span *ngIf="sidenav.opened">Criar Usuário</span>
       </a>
-
-      <!-- Divisor -->
       <mat-divider></mat-divider>
-
-      <!-- Logout -->
-      <a mat-list-item (click)="logout()">
+      <a mat-list-item (click)="logout()" matTooltip="Logout">
         <mat-icon>logout</mat-icon>
-        <span>Logout</span>
+        <span *ngIf="sidenav.opened">Logout</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>
 
   <!-- Conteúdo Principal -->
   <mat-sidenav-content>
+    <!-- Botão Flutuante para Reabrir o Sidebar -->
+    <button
+      *ngIf="!sidenav.opened"
+      mat-fab
+      color="primary"
+      class="sidebar-toggle-button"
+      (click)="sidenav.toggle()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <!-- Seu conteúdo atual (métricas, gráficos, tabela) -->
     <mat-grid-list cols="2" rowHeight="2:1" gutterSize="16px">
       <!-- Cards de Métricas -->
       <mat-grid-tile>
