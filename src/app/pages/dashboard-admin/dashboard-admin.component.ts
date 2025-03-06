@@ -1,9 +1,14 @@
+import { MatTableModule } from '@angular/material/table';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { MatTableModule } from '@angular/material/table';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -13,13 +18,17 @@ import { MatTableModule } from '@angular/material/table';
     MatCardModule,
     MatGridListModule,
     NgxChartsModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatDividerModule,
     MatTableModule,
   ],
   templateUrl: './dashboard-admin.component.html',
   styleUrls: ['./dashboard-admin.component.scss'],
 })
 export class DashboardAdminComponent {
-  // Dados para os gráficos
+  // Dados para os gráficos e tabelas...
   barChartData = [
     { name: 'Projeto A', value: 40 },
     { name: 'Projeto B', value: 30 },
@@ -32,10 +41,17 @@ export class DashboardAdminComponent {
     { name: 'Pendentes', value: 20 },
   ];
 
-  // Dados para a tabela de atividades
   recentActivities = [
     { task: 'Tarefa 1', project: 'Projeto A', hours: 5, date: '2023-10-01' },
     { task: 'Tarefa 2', project: 'Projeto B', hours: 3, date: '2023-10-02' },
     { task: 'Tarefa 3', project: 'Projeto C', hours: 2, date: '2023-10-03' },
   ];
+
+  constructor(private router: Router) {}
+
+  logout() {
+    // Lógica para logout (ex: limpar token, redirecionar para login)
+    localStorage.removeItem('token'); // Exemplo: remover token do localStorage
+    this.router.navigate(['/login']);
+  }
 }

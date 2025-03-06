@@ -1,112 +1,155 @@
-<mat-grid-list cols="2" rowHeight="2:1" gutterSize="16px">
-  <!-- Cards de Métricas -->
-  <mat-grid-tile>
-    <mat-card class="metric-card">
-      <mat-card-header>
-        <mat-card-title>Total de Projetos</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <h1>15</h1>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <mat-card class="metric-card">
-      <mat-card-header>
-        <mat-card-title>Total de Tarefas</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <h1>120</h1>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <mat-card class="metric-card">
-      <mat-card-header>
-        <mat-card-title>Horas Trabalhadas</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <h1>320h</h1>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <mat-card class="metric-card">
-      <mat-card-header>
-        <mat-card-title>Usuários Ativos</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <h1>8</h1>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidebar -->
+  <mat-sidenav mode="side" opened>
+    <mat-nav-list>
+      <!-- Link para o Dashboard -->
+      <a mat-list-item routerLink="/dashboard-admin">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </a>
 
-<!-- Gráficos -->
-<div class="chart-container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Horas por Projeto</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <ngx-charts-bar-vertical
-        [view]="[600, 300]"
-        [results]="barChartData"
-        xAxisLabel="Projetos"
-        yAxisLabel="Horas"
-        [showXAxisLabel]="true"
-        [showYAxisLabel]="true"
-      >
-      </ngx-charts-bar-vertical>
-    </mat-card-content>
-  </mat-card>
+      <!-- Link para Lançamento de Horas -->
+      <a mat-list-item routerLink="/hours">
+        <mat-icon>schedule</mat-icon>
+        <span>Lançar Horas</span>
+      </a>
 
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Distribuição de Tarefas</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <ngx-charts-pie-chart
-        [view]="[600, 300]"
-        [results]="pieChartData"
-        [labels]="true"
-      >
-      </ngx-charts-pie-chart>
-    </mat-card-content>
-  </mat-card>
-</div>
+      <!-- Link para Relatórios -->
+      <a mat-list-item routerLink="/reports">
+        <mat-icon>assessment</mat-icon>
+        <span>Relatórios</span>
+      </a>
 
-<!-- Tabela de Atividades Recentes -->
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Últimas Atividades</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <table mat-table [dataSource]="recentActivities">
-      <ng-container matColumnDef="task">
-        <th mat-header-cell *matHeaderCellDef>Tarefa</th>
-        <td mat-cell *matCellDef="let activity">{{ activity.task }}</td>
-      </ng-container>
-      <ng-container matColumnDef="project">
-        <th mat-header-cell *matHeaderCellDef>Projeto</th>
-        <td mat-cell *matCellDef="let activity">{{ activity.project }}</td>
-      </ng-container>
-      <ng-container matColumnDef="hours">
-        <th mat-header-cell *matHeaderCellDef>Horas</th>
-        <td mat-cell *matCellDef="let activity">{{ activity.hours }}h</td>
-      </ng-container>
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef>Data</th>
-        <td mat-cell *matCellDef="let activity">{{ activity.date }}</td>
-      </ng-container>
-      <tr
-        mat-header-row
-        *matHeaderRowDef="['task', 'project', 'hours', 'date']"
-      ></tr>
-      <tr
-        mat-row
-        *matRowDef="let row; columns: ['task', 'project', 'hours', 'date']"
-      ></tr>
-    </table>
-  </mat-card-content>
-</mat-card>
+      <!-- Link para Criar Usuário -->
+      <a mat-list-item routerLink="/create-user">
+        <mat-icon>person_add</mat-icon>
+        <span>Criar Usuário</span>
+      </a>
+
+      <!-- Divisor -->
+      <mat-divider></mat-divider>
+
+      <!-- Logout -->
+      <a mat-list-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Conteúdo Principal -->
+  <mat-sidenav-content>
+    <mat-grid-list cols="2" rowHeight="2:1" gutterSize="16px">
+      <!-- Cards de Métricas -->
+      <mat-grid-tile>
+        <mat-card class="metric-card">
+          <mat-card-header>
+            <mat-card-title>Total de Projetos</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <h1>15</h1>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card class="metric-card">
+          <mat-card-header>
+            <mat-card-title>Total de Tarefas</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <h1>120</h1>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card class="metric-card">
+          <mat-card-header>
+            <mat-card-title>Horas Trabalhadas</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <h1>320h</h1>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card class="metric-card">
+          <mat-card-header>
+            <mat-card-title>Usuários Ativos</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <h1>8</h1>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <!-- Gráficos -->
+    <div class="chart-container">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Horas por Projeto</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ngx-charts-bar-vertical
+            [view]="[600, 300]"
+            [results]="barChartData"
+            xAxisLabel="Projetos"
+            yAxisLabel="Horas"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+          >
+          </ngx-charts-bar-vertical>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Distribuição de Tarefas</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ngx-charts-pie-chart
+            [view]="[600, 300]"
+            [results]="pieChartData"
+            [labels]="true"
+          >
+          </ngx-charts-pie-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Tabela de Atividades Recentes -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Últimas Atividades</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <table mat-table [dataSource]="recentActivities">
+          <ng-container matColumnDef="task">
+            <th mat-header-cell *matHeaderCellDef>Tarefa</th>
+            <td mat-cell *matCellDef="let activity">{{ activity.task }}</td>
+          </ng-container>
+          <ng-container matColumnDef="project">
+            <th mat-header-cell *matHeaderCellDef>Projeto</th>
+            <td mat-cell *matCellDef="let activity">{{ activity.project }}</td>
+          </ng-container>
+          <ng-container matColumnDef="hours">
+            <th mat-header-cell *matHeaderCellDef>Horas</th>
+            <td mat-cell *matCellDef="let activity">{{ activity.hours }}h</td>
+          </ng-container>
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Data</th>
+            <td mat-cell *matCellDef="let activity">{{ activity.date }}</td>
+          </ng-container>
+          <tr
+            mat-header-row
+            *matHeaderRowDef="['task', 'project', 'hours', 'date']"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: ['task', 'project', 'hours', 'date']"
+          ></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </mat-sidenav-content>
+</mat-sidenav-container>
