@@ -1,58 +1,68 @@
-<div class="projetos-container">
-  <h2>Gerenciar Projetos</h2>
-
-  <!-- Botão para adicionar projeto -->
-  <button class="btn btn-primary" (click)="abrirModal()">Novo Projeto</button>
-
-  <!-- Tabela de projetos -->
-  <table class="projetos-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let projeto of projetos">
-        <td>{{ projeto.id }}</td>
-        <td>{{ projeto.nome }}</td>
-        <td>
-          <button class="btn btn-edit" (click)="editarProjeto(projeto)">
-            Editar
-          </button>
-          <button class="btn btn-delete" (click)="confirmarExclusao(projeto)">
-            Excluir
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Modal para criar/editar projeto -->
-  <div class="modal" *ngIf="exibirModal">
-    <div class="modal-content">
-      <h3>{{ projetoSelecionado ? "Editar Projeto" : "Novo Projeto" }}</h3>
-      <label>Nome:</label>
-      <input type="text" [(ngModel)]="projetoSelecionado.nome" />
-      <button class="btn btn-save" (click)="salvarProjeto()">Salvar</button>
-      <button class="btn btn-cancel" (click)="fecharModal()">Cancelar</button>
-    </div>
-  </div>
-
-  <!-- Modal de Confirmação -->
-  <div class="modal" *ngIf="exibirConfirmacao">
-    <div class="modal-content">
-      <p>
-        Tem certeza que deseja excluir o projeto "{{
-          projetoSelecionado.nome
-        }}"?
-      </p>
-      <button class="btn btn-confirm" (click)="excluirProjeto()">Sim</button>
-      <button class="btn btn-cancel" (click)="exibirConfirmacao = false">
-        Não
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Gerenciar Projetos</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <!-- Formulário para Criar Projetos -->
+    <form (ngSubmit)="onSubmit()" #projectForm="ngForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Nome do Projeto</mat-label>
+        <input matInput [(ngModel)]="project.name" name="name" required />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Descrição</mat-label>
+        <textarea
+          matInput
+          [(ngModel)]="project.description"
+          name="description"
+        ></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Funcionários Responsáveis</mat-label>
+        <mat-select
+          [(ngModel)]="project.assignedTo"
+          name="assignedTo"
+          multiple
+          required
+        >
+          <mat-option *ngFor="let employee of employees" [value]="employee.id">
+            {{ employee.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="projectForm.invalid"
+      >
+        {{ isEditing ? "Atualizar" : "Criar" }}
       </button>
-    </div>
-  </div>
-</div>
-<app-back-button></app-back-button>
+      <button mat-button *ngIf="isEditing" (click)="cancelEdit()">
+        Cancelar
+      </button>
+    </form>
+
+    <!-- Lista de Projetos -->
+    <mat-list>
+      <mat-list-item *ngFor="let project of projects">
+        <h3>{{ project.name }}</h3>
+        <p>{{ project.description }}</p>
+        <p>
+          <strong>Responsáveis:</strong>
+          <span *ngFor="let employeeId of project.assignedTo; let last = last">
+            {{ getEmployeeName(employeeId) }}{{ !last ? ", " : "" }}
+          </span>
+        </p>
+        <div class="actions">
+          <button mat-icon-button (click)="editProject(project)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteProject(project)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

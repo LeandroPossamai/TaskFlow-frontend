@@ -48,3 +48,22 @@ mat-icon {
   left: 20px;
   z-index: 1000; /* Garante que o botão fique acima de outros elementos */
 }
+.chart-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Espaçamento entre os gráficos */
+  justify-content: center; /* Centraliza os gráficos na tela */
+}
+
+.chart-card {
+  flex: 1 1 calc(50% - 16px); /* Cada card ocupa 50% do espaço, menos o gap */
+  max-width: 600px; /* Largura máxima de cada card */
+  box-sizing: border-box; /* Garante que o padding não afete o cálculo do tamanho */
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 768px) {
+  .chart-card {
+    flex: 1 1 100%; /* Em telas pequenas, cada card ocupa 100% da largura */
+  }
+}

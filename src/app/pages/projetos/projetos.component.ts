@@ -1,71 +1,81 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BackButtonComponent } from '../../components/back-button/back-button.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-projetos',
+  selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule, FormsModule, BackButtonComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatListModule,
+    MatIconModule,
+    MatSelectModule,
+  ],
   templateUrl: './projetos.component.html',
   styleUrls: ['./projetos.component.scss'],
 })
 export class ProjetosComponent {
-  projetos = [
-    { id: 1, nome: 'Projeto 1' },
-    { id: 2, nome: 'Projeto 2' },
+  projects: any[] = []; // Lista de projetos
+  project: any = { name: '', description: '', assignedTo: [] }; // Projeto atual (para formulário)
+  isEditing = false; // Indica se está editando um projeto
+
+  // Lista de funcionários (exemplo)
+  employees = [
+    { id: 1, name: 'João Silva' },
+    { id: 2, name: 'Maria Souza' },
+    { id: 3, name: 'Carlos Oliveira' },
   ];
 
-  projetoSelecionado: { id?: number; nome: string } = { nome: '' };
-
-  exibirModal = false;
-  exibirConfirmacao = false;
-
-  abrirModal() {
-    this.projetoSelecionado = { nome: '' }; // Limpa os dados ao abrir o modal
-    this.exibirModal = true;
-  }
-
-  fecharModal() {
-    this.exibirModal = false;
-  }
-
-  editarProjeto(projeto: { id: number; nome: string }) {
-    this.projetoSelecionado = { ...projeto }; // Preenche com os dados do projeto
-    this.exibirModal = true;
-  }
-
-  salvarProjeto() {
-    if (this.projetoSelecionado.nome) {
-      if (this.projetoSelecionado.id) {
-        const index = this.projetos.findIndex(
-          (p) => p.id === this.projetoSelecionado.id
-        );
-        this.projetos[index] = {
-          ...this.projetoSelecionado,
-          id: this.projetoSelecionado.id!,
-        };
-      } else {
-        this.projetoSelecionado.id = this.projetos.length + 1; // Definindo um ID simples
-        this.projetos.push({
-          ...this.projetoSelecionado,
-          id: this.projetoSelecionado.id!,
-        });
-      }
-      this.fecharModal();
+  // Adicionar ou atualizar projeto
+  onSubmit() {
+    if (this.isEditing) {
+      // Atualizar projeto existente
+      const index = this.projects.findIndex((p) => p === this.project);
+      this.projects[index] = { ...this.project };
+    } else {
+      // Adicionar novo projeto
+      this.projects.push({ ...this.project });
     }
+    this.resetForm();
   }
 
-  confirmarExclusao(projeto: { id: number; nome: string }) {
-    this.projetoSelecionado = projeto;
-    this.exibirConfirmacao = true;
+  // Editar projeto
+  editProject(project: any) {
+    this.project = { ...project };
+    this.isEditing = true;
   }
 
-  excluirProjeto() {
-    this.projetos = this.projetos.filter(
-      (p) => p.id !== this.projetoSelecionado.id
-    );
-    this.exibirConfirmacao = false;
+  // Excluir projeto
+  deleteProject(project: any) {
+    this.projects = this.projects.filter((p) => p !== project);
+  }
+
+  // Cancelar edição
+  cancelEdit() {
+    this.resetForm();
+  }
+
+  // Limpar formulário
+  resetForm() {
+    this.project = { name: '', description: '', assignedTo: [] };
+    this.isEditing = false;
+  }
+
+  // Buscar o nome do funcionário pelo ID
+  getEmployeeName(employeeId: number): string {
+    const employee = this.employees.find((e) => e.id === employeeId);
+    return employee ? employee.name : 'Não atribuído';
   }
 }
