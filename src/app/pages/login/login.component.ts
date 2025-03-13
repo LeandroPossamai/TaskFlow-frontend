@@ -1,15 +1,16 @@
-import { LoginService } from './../../services/login.service';
-import { PrimaryInputComponent } from './../../components/primary-input/primary-input.component';
-import { Component } from '@angular/core';
-import { DefaultLoginLayoutComponent } from '../../components/default-login-layout/default-login-layout.component';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { DefaultLoginLayoutComponent } from '../../components/default-login-layout/default-login-layout.component';
+import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
+import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../components/core/authentication/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +30,7 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private loginService: LoginService,
+    private AuthService: AuthService, //
     private toastr: ToastrService // ✅ Toastr corretamente injetado
   ) {
     this.loginForm = new FormGroup({
@@ -41,12 +43,18 @@ export class LoginComponent {
   }
 
   submit() {
-    this.loginService
-      .login(this.loginForm.value.email, this.loginForm.value.password)
-      .subscribe({
-        next: () => this.toastr.success('Login feito com sucesso!', 'Sucesso'), // ✅ Agora está correto
-        error: () => this.toastr.error('Erro ao fazer login', 'Erro'), // ✅ Agora está correto
-      });
+    const credentials = {
+      username: this.loginForm.value.email,
+      password: this.loginForm.value.password,
+    };
+    this.AuthService.login(credentials).subscribe(
+      (data: any) => {
+        console.log(data);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   navigate() {

@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -27,11 +28,13 @@ import { MatButtonModule } from '@angular/material/button';
     MatTooltipModule,
     MatButtonModule,
     MatTableModule,
+    NzModalModule,
   ],
   templateUrl: './dashboard-admin.component.html',
   styleUrls: ['./dashboard-admin.component.scss'],
 })
 export class DashboardAdminComponent {
+  isVisible = false;
   // Dados para os gráficos e tabelas...
   barChartData = [
     { name: 'Projeto A', value: 40 },
