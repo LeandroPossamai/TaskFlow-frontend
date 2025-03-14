@@ -5,6 +5,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { BackButtonComponent } from '../../components/back-button/back-button.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-lancar-horas',
@@ -13,7 +18,11 @@ import { BackButtonComponent } from '../../components/back-button/back-button.co
     CommonModule,
     ReactiveFormsModule,
     ToastModule,
-    BackButtonComponent,
+    MatSidenavModule,
+    MatIconModule,
+    MatDividerModule,
+    MatListModule,
+    RouterModule,
   ],
   providers: [MessageService], // Importa o serviço de mensagens
   templateUrl: './lancar-horas.component.html',
