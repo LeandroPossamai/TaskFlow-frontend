@@ -73,12 +73,9 @@
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Ações</th>
-      <td mat-cell *matCellDef="let project">
-        <button mat-icon-button (click)="editProject(project)">
+      <td mat-cell *matCellDef="let project; let i = index">
+        <button mat-icon-button (click)="editProject(project, i)">
           <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" (click)="deleteProject(project)">
-          <mat-icon>delete</mat-icon>
         </button>
       </td>
     </ng-container>
