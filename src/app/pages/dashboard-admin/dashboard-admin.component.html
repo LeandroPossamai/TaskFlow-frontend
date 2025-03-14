@@ -28,6 +28,10 @@
         <mat-icon>assessment</mat-icon>
         <span *ngIf="sidenav.opened">Atividade</span>
       </a>
+      <a mat-list-item routerLink="/projetos" matTooltip="Projetos">
+        <mat-icon>assessment</mat-icon>
+        <span *ngIf="sidenav.opened">Projetos</span>
+      </a>
       <a mat-list-item routerLink="/cad-users" matTooltip="Criar Usuário">
         <mat-icon>person_add</mat-icon>
         <span *ngIf="sidenav.opened">Criar Usuário</span>
@@ -69,10 +73,10 @@
       <mat-grid-tile>
         <mat-card class="metric-card">
           <mat-card-header>
-            <mat-card-title>Total de Tarefas</mat-card-title>
+            <mat-card-title>Total de Atividades</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <h1>120</h1>
+            <h1>42</h1>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
@@ -82,7 +86,7 @@
             <mat-card-title>Horas Trabalhadas</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <h1>320h</h1>
+            <h1>120h</h1>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
@@ -92,7 +96,7 @@
             <mat-card-title>Usuários Ativos</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <h1>8</h1>
+            <h1>15</h1>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>

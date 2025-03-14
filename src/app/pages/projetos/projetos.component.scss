@@ -1,76 +1,31 @@
-/* Estilo para o formulário */
-form {
+.container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.table-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-group {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 24px;
-
-  mat-form-field {
-    width: 100%;
-  }
-
-  button {
-    align-self: flex-start; /* Alinha os botões à esquerda */
-  }
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 10px;
 }
 
-/* Estilo para a lista de projetos */
-mat-list {
-  border-top: 1px solid #e0e0e0;
-  padding-top: 16px;
-
-  mat-list-item {
-    display: flex;
-    flex-direction: column; /* Exibe os itens em coluna */
-    align-items: flex-start; /* Alinha o conteúdo à esquerda */
-    padding: 16px 0; /* Adiciona espaçamento interno */
-    border-bottom: 1px solid #e0e0e0; /* Adiciona uma borda entre os itens */
-
-    h3 {
-      margin: 0;
-      font-weight: 500;
-      font-size: 1.1rem; /* Tamanho do título */
-      white-space: normal; /* Permite que o texto quebre em várias linhas */
-    }
-
-    p {
-      margin: 4px 0; /* Espaçamento entre os parágrafos */
-      color: #666;
-      font-size: 0.9rem; /* Tamanho do texto */
-      white-space: normal; /* Permite que o texto quebre em várias linhas */
-    }
-
-    p strong {
-      color: #000; /* Cor do texto em negrito */
-    }
-
-    /* Estilo para os botões de ação */
-    .actions {
-      margin-left: auto; /* Alinha os botões à direita */
-      display: flex;
-      gap: 8px; /* Espaçamento entre os botões */
-    }
-  }
-}
-
-/* Estilo para o card principal */
-mat-card {
-  padding: 16px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
-}
-
-/* Espaçamento entre os itens da lista */
-mat-list-item:not(:last-child) {
-  margin-bottom: 8px;
-}
-.card {
-  margin-top: 20px;
-}
-
-.p-table {
+table {
   width: 100%;
+  margin-top: 10px;
 }
 
-.p-iconField {
-  width: 100%;
+.mat-elevation-z8 {
+  border-radius: 10px;
 }

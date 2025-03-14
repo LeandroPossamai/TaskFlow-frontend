@@ -53,9 +53,66 @@ export class DashboardAdminComponent {
   ];
 
   recentActivities = [
-    { task: 'Tarefa 1', project: 'Projeto A', hours: 5, date: '2023-10-01' },
-    { task: 'Tarefa 2', project: 'Projeto B', hours: 3, date: '2023-10-02' },
-    { task: 'Tarefa 3', project: 'Projeto C', hours: 2, date: '2023-10-03' },
+    {
+      task: 'Implementação do login',
+      project: 'Sistema de Agendamentos',
+      hours: 4,
+      date: '14/03/2025',
+    },
+    {
+      task: 'Correção de bugs no dashboard',
+      project: 'Painel Administrativo',
+      hours: 3,
+      date: '13/03/2025',
+    },
+    {
+      task: 'Ajuste de layout responsivo',
+      project: 'E-commerce TechStore',
+      hours: 5,
+      date: '12/03/2025',
+    },
+    {
+      task: 'Criação de API de pagamentos',
+      project: 'Aplicativo de Delivery',
+      hours: 6,
+      date: '11/03/2025',
+    },
+    {
+      task: 'Revisão do código e testes',
+      project: 'Plataforma Educacional',
+      hours: 2,
+      date: '10/03/2025',
+    },
+    {
+      task: 'Configuração do banco de dados',
+      project: 'Sistema de Reservas',
+      hours: 4,
+      date: '09/03/2025',
+    },
+    {
+      task: 'Desenvolvimento de cadastro de clientes',
+      project: 'CRM para Empresas',
+      hours: 5,
+      date: '12/03/2025',
+    },
+    {
+      task: 'Implementação de relatórios gerenciais',
+      project: 'Gestão de Estoque',
+      hours: 3,
+      date: '13/03/2025',
+    },
+    {
+      task: 'Melhoria na indexação de notícias',
+      project: 'Site de Notícias',
+      hours: 4,
+      date: '10/03/2025',
+    },
+    {
+      task: 'Integração de gateway de pagamento',
+      project: 'Marketplace de Freelancers',
+      hours: 6,
+      date: '11/03/2025',
+    },
   ];
 
   constructor(

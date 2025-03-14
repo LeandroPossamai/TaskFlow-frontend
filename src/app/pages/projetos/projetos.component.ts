@@ -2,12 +2,23 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+
+interface Project {
+  name: string;
+  description: string;
+  assignedTo: number[];
+}
+
+interface Employee {
+  id: number;
+  name: string;
+}
 
 @Component({
   selector: 'app-projects',
@@ -16,66 +27,110 @@ import { MatSelectModule } from '@angular/material/select';
     CommonModule,
     FormsModule,
     MatCardModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
-    MatListModule,
-    MatIconModule,
     MatSelectModule,
   ],
   templateUrl: './projetos.component.html',
   styleUrls: ['./projetos.component.scss'],
 })
 export class ProjetosComponent {
-  projects: any[] = []; // Lista de projetos
-  project: any = { name: '', description: '', assignedTo: [] }; // Projeto atual (para formulário)
-  isEditing = false; // Indica se está editando um projeto
-
-  // Lista de funcionários (exemplo)
-  employees = [
-    { id: 1, name: 'João Silva' },
-    { id: 2, name: 'Maria Souza' },
-    { id: 3, name: 'Carlos Oliveira' },
+  projects: Project[] = [
+    {
+      name: 'HairSync',
+      description:
+        'Plataforma inteligente para gestão de horários e fidelização de clientes em barbearias.',
+      assignedTo: [1, 2],
+    },
+    {
+      name: 'VisionBoard AI',
+      description:
+        'Dashboard com IA para análise preditiva de negócios, otimizando estratégias de vendas e marketing.',
+      assignedTo: [3, 4],
+    },
+    {
+      name: 'PetCare Connect',
+      description:
+        'Sistema inovador para agendamento de consultas, banho e tosa, com rastreamento em tempo real para donos de pets.',
+      assignedTo: [1, 3],
+    },
+    {
+      name: 'NextGen Edu',
+      description:
+        'Plataforma educacional interativa com gamificação e desafios diários para aprendizado personalizado.',
+      assignedTo: [3, 5],
+    },
+    {
+      name: 'EcoTrack',
+      description:
+        'Sistema para monitoramento de consumo de energia e sustentabilidade em empresas e residências.',
+      assignedTo: [6],
+    },
+    {
+      name: 'FitPlanner',
+      description:
+        'Aplicativo para planejamento de treinos e dietas personalizadas, com acompanhamento de metas em tempo real.',
+      assignedTo: [3, 1],
+    },
+    {
+      name: 'CodeFlow Hub',
+      description:
+        'Ambiente colaborativo para desenvolvedores compartilharem snippets, dicas e projetos open-source.',
+      assignedTo: [1, 6],
+    },
+    {
+      name: 'NodeOps',
+      description:
+        'Plataforma DevOps baseada em Node.js para CI/CD e automação de infraestrutura em tempo real.',
+      assignedTo: [2],
+    },
   ];
 
-  // Adicionar ou atualizar projeto
+  employees: Employee[] = [
+    { id: 1, name: 'Lucas' },
+    { id: 2, name: 'Erick' },
+    { id: 3, name: 'Luciano' },
+    { id: 4, name: 'Erica' },
+    { id: 5, name: 'Rodrigo' },
+    { id: 6, name: 'Thiago' },
+  ];
+
+  project: Project = { name: '', description: '', assignedTo: [] };
+  isEditing = false;
+
+  displayedColumns: string[] = ['name', 'description', 'assignedTo', 'actions'];
+
   onSubmit() {
     if (this.isEditing) {
-      // Atualizar projeto existente
-      const index = this.projects.findIndex((p) => p === this.project);
-      this.projects[index] = { ...this.project };
+      this.isEditing = false;
     } else {
-      // Adicionar novo projeto
       this.projects.push({ ...this.project });
     }
-    this.resetForm();
+    this.project = { name: '', description: '', assignedTo: [] };
   }
 
-  // Editar projeto
-  editProject(project: any) {
+  editProject(project: Project) {
     this.project = { ...project };
     this.isEditing = true;
   }
 
-  // Excluir projeto
-  deleteProject(project: any) {
+  cancelEdit() {
+    this.isEditing = false;
+    this.project = { name: '', description: '', assignedTo: [] };
+  }
+
+  deleteProject(project: Project) {
     this.projects = this.projects.filter((p) => p !== project);
   }
 
-  // Cancelar edição
-  cancelEdit() {
-    this.resetForm();
-  }
-
-  // Limpar formulário
-  resetForm() {
-    this.project = { name: '', description: '', assignedTo: [] };
-    this.isEditing = false;
-  }
-
-  // Buscar o nome do funcionário pelo ID
-  getEmployeeName(employeeId: number): string {
-    const employee = this.employees.find((e) => e.id === employeeId);
-    return employee ? employee.name : 'Não atribuído';
+  getEmployeeNames(ids: number[]): string {
+    return (
+      ids
+        .map((id) => this.employees.find((emp) => emp.id === id)?.name)
+        .join(', ') || 'Nenhum'
+    );
   }
 }
