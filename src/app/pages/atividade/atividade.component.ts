@@ -74,17 +74,28 @@ export class AtividadeComponent {
   editando: any = null;
 
   adicionarAtividade() {
+    // Verificando se o nome e o status foram preenchidos
     if (this.novaAtividade.nome && this.novaAtividade.status) {
+      // Gerando um ID novo para a atividade
       const newId = this.atividades.length
         ? Math.max(...this.atividades.map((a) => a.id)) + 1
         : 1;
+
+      // Adicionando a nova atividade à lista
       this.atividades.push({
         id: newId,
         ...this.novaAtividade,
       });
+
+      // Limpar o formulário após adicionar
       this.novaAtividade = { nome: '', status: '' };
+      console.log('Atividade adicionada:', this.atividades); // Depuração
+    } else {
+      // Se não for possível adicionar, exibe um erro no console
+      console.log('Erro: nome ou status não fornecido');
     }
   }
+
   getStatusClass(status: string) {
     switch (status) {
       case 'Concluído':
