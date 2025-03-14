@@ -30,9 +30,16 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class LancarHorasComponent {
   atividades = [
-    { id: 1, nome: 'Desenvolvimento Front-end' },
+    { id: 1, nome: 'Implementação do login' },
     { id: 2, nome: 'Revisão de Código' },
     { id: 3, nome: 'Correção de Bugs' },
+    { id: 4, nome: 'Estrutura do projeto' },
+    { id: 5, nome: 'Correção de End-Point' },
+    { id: 6, nome: 'Correção da Rota users' },
+    { id: 7, nome: 'Gerenciamento' },
+    { id: 8, nome: 'Correção de BD' },
+    { id: 9, nome: 'Correção de Script' },
+    { id: 10, nome: 'Correção de Controller' },
   ];
 
   horasForm = new FormGroup({

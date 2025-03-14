@@ -47,11 +47,16 @@ export class RelatoriosComponent {
   });
 
   projetos = [
-    { id: 1, nome: 'Projeto Alpha' },
-    { id: 2, nome: 'Projeto Beta' },
-    { id: 3, nome: 'Projeto Gama' },
-    { id: 4, nome: 'Projeto Delta' },
-    { id: 5, nome: 'Projeto Ômega' },
+    { id: 1, nome: 'CodeFlow' },
+    { id: 2, nome: 'DevSync' },
+    { id: 3, nome: 'ByteForge' },
+    { id: 4, nome: 'ScriptX' },
+    { id: 5, nome: 'AlgoNest' },
+    { id: 6, nome: 'CodeSphere' },
+    { id: 7, nome: 'DevOpsHub' },
+    { id: 8, nome: 'AI Nexus' },
+    { id: 9, nome: 'CloudStack' },
+    { id: 10, nome: 'DataBridge' },
   ];
 
   atividades = [
