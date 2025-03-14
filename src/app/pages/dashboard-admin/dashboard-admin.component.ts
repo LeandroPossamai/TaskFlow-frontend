@@ -1,6 +1,6 @@
 import { MatTableModule } from '@angular/material/table';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -12,6 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { UsuariosService } from '../../services/usuarios.service';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -29,12 +30,15 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     MatButtonModule,
     MatTableModule,
     NzModalModule,
+    RouterModule,
   ],
   templateUrl: './dashboard-admin.component.html',
   styleUrls: ['./dashboard-admin.component.scss'],
 })
 export class DashboardAdminComponent {
   isVisible = false;
+  usuarios: any[] = [];
+  userAdmin: any;
   // Dados para os gráficos e tabelas...
   barChartData = [
     { name: 'Projeto A', value: 40 },
@@ -54,11 +58,33 @@ export class DashboardAdminComponent {
     { task: 'Tarefa 3', project: 'Projeto C', hours: 2, date: '2023-10-03' },
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private usuarioservice: UsuariosService
+  ) {}
 
   logout() {
     // Lógica para logout (ex: limpar token, redirecionar para login)
-    localStorage.removeItem('token'); // Exemplo: remover token do localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('loginstatus'); // Exemplo: remover token do localStorage
     this.router.navigate(['/login']);
+  }
+
+  ngOnInit() {
+    let user: any = localStorage.getItem('email');
+    this.obterusarios();
+  }
+
+  obterusarios() {
+    let user: any = localStorage.getItem('user');
+    this.usuarioservice.receberUsuarios().subscribe(
+      (data: any) => {
+        console.log(data);
+        this.usuarios = data;
+      },
+      (error: any) => {
+        console.error('Erro ao criar usuario:', error);
+      }
+    );
   }
 }

@@ -1,11 +1,10 @@
-import { AppComponent } from './../../../app.component';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { catchError, map, of } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -19,60 +18,63 @@ export class AuthService {
   ) {}
 
   urlApi = environment.apiUrl;
-  timer: any;
-  acesso: any;
-  acessover: any;
 
   login(credentials: any) {
-    let header: any = new HttpHeaders().set(
-      'Content-Type',
-      'application/x-www-form-urlencoded'
-    );
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    let body = new URLSearchParams();
-    body.set('username', credentials.username);
-    body.set('password', credentials.password);
+    const body = {
+      username: credentials.username,
+      password: credentials.password,
+    };
 
-    return this.http
-      .post(
-        this.urlApi + '/authentication/authenticate_user',
-        body.toString(),
-        {
-          headers: header,
-        }
-      )
-      .pipe(
-        map((response) => {
-          let result: any = response;
-          if (result && result['access_token']) {
-            if (localStorage['loginstatus'] != 'loggedin') {
-              if (!localStorage['loginstatus']) {
-                localStorage['loginstatus'] = '';
-              }
-              localStorage['loginstatus'] = 'loggedin';
+    return this.http.post(this.urlApi + '/login', body, { headers }).pipe(
+      map((response: any) => {
+        console.log(response);
+        // Verifica a estrutura da resposta que vem do backend
+        if (response && response['acessToken']) {
+          console.log('Token recebido');
+          if (localStorage['loginstatus'] != 'loggedin') {
+            if (!localStorage['loginstatus']) {
+              localStorage['loginstatus'] = '';
             }
-            let encryptToken = result['access_token'];
-            localStorage.setItem('token', encryptToken);
-            this.router.navigate(['/dashboard']);
-            // // // console.log(response)
-            return response;
+            localStorage['loginstatus'] = 'loggedin';
           }
-          // // // console.log(response)
+          const encryptToken = response['acessToken'];
+          const expiresIn = response['expiresIn'];
+
+          // Armazena o token e a data de expiração no localStorage
+          localStorage.setItem('token', encryptToken);
+          console.log(encryptToken);
+          localStorage.setItem('expires_in', expiresIn.toString());
+          localStorage.setItem('loginstatus', 'loggedin');
+
+          // Redireciona para o dashboard ou outra página
+          this.router.navigate(['/dashboard-admin']);
+
           return response;
-        }),
-        catchError((error) => {
-          this.notification.warning(
-            'Login invalido',
-            'usuario ou senha invÃ¡lidos'
-          );
-          return of(error);
-        })
-      );
+        }
+
+        // Se não encontrar o token, exibe um erro
+        this.notification.warning(
+          'Login inválido',
+          'Usuário ou senha inválidos'
+        );
+        return response;
+      }),
+      catchError((error) => {
+        this.notification.warning(
+          'Login inválido',
+          'Usuário ou senha inválidos'
+        );
+        return of(error);
+      })
+    );
   }
 
   logout() {
     localStorage.removeItem('loginstatus');
     localStorage.removeItem('token');
+    localStorage.removeItem('expires_in');
     this.router.navigate(['/login']);
   }
 
@@ -93,7 +95,7 @@ export class AuthService {
   }
 
   get currentUser() {
-    let token: any = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (!token) return null;
     return this.jwtHelper.decodeToken(token);
   }

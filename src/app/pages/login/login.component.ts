@@ -34,19 +34,21 @@ export class LoginComponent {
     private toastr: ToastrService // ✅ Toastr corretamente injetado
   ) {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required]),
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(6),
+        Validators.minLength(3),
       ]),
     });
   }
 
   submit() {
+    console.log('ola mundo');
     const credentials = {
       username: this.loginForm.value.email,
       password: this.loginForm.value.password,
     };
+    localStorage.setItem('user', credentials.username);
     this.AuthService.login(credentials).subscribe(
       (data: any) => {
         console.log(data);

@@ -20,9 +20,13 @@
         <mat-icon>schedule</mat-icon>
         <span *ngIf="sidenav.opened">Lançar Horas</span>
       </a>
-      <a mat-list-item routerLink="/reports" matTooltip="Relatórios">
+      <a mat-list-item routerLink="/relatorios" matTooltip="Relatórios">
         <mat-icon>assessment</mat-icon>
         <span *ngIf="sidenav.opened">Relatórios</span>
+      </a>
+      <a mat-list-item routerLink="/atividade" matTooltip="Atividade">
+        <mat-icon>assessment</mat-icon>
+        <span *ngIf="sidenav.opened">Atividade</span>
       </a>
       <a mat-list-item routerLink="/create-user" matTooltip="Criar Usuário">
         <mat-icon>person_add</mat-icon>
@@ -161,6 +165,85 @@
           ></tr>
         </table>
       </mat-card-content>
+
+      <mat-card style="margin-top: 20px">
+        <mat-card-header>
+          <mat-card-title>Lista de Usuários</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]="usuarios" class="user-table">
+            <ng-container matColumnDef="userId">
+              <th mat-header-cell *matHeaderCellDef>ID</th>
+              <td mat-cell *matCellDef="let usuario">
+                {{
+                  usuario.userId.length > 7
+                    ? (usuario.userId | slice : 0 : 7) + "..."
+                    : usuario.userId
+                }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef>Nome</th>
+              <td mat-cell *matCellDef="let usuario">{{ usuario.username }}</td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef>Email</th>
+              <td mat-cell *matCellDef="let usuario">{{ usuario.email }}</td>
+            </ng-container>
+            <ng-container matColumnDef="dataCriacao">
+              <th mat-header-cell *matHeaderCellDef>Data de Criação</th>
+              <td mat-cell *matCellDef="let usuario">
+                {{ usuario.dataCriacao | date : "dd/MM/yyyy HH:mm" }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="ultimoLogin">
+              <th mat-header-cell *matHeaderCellDef>Último Login</th>
+              <td mat-cell *matCellDef="let usuario">
+                {{
+                  usuario.ultimoLogin
+                    ? (usuario.ultimoLogin | date : "dd/MM/yyyy HH:mm")
+                    : "Nunca"
+                }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="perfil">
+              <th mat-header-cell *matHeaderCellDef>Perfil</th>
+              <td mat-cell *matCellDef="let usuario">
+                <ul>
+                  <li *ngFor="let perfil of usuario.perfil">
+                    {{ perfil.name }}
+                  </li>
+                </ul>
+              </td>
+            </ng-container>
+            <tr
+              mat-header-row
+              *matHeaderRowDef="[
+                'userId',
+                'username',
+                'email',
+                'dataCriacao',
+                'ultimoLogin',
+                'perfil'
+              ]"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="
+                let row;
+                columns: [
+                  'userId',
+                  'username',
+                  'email',
+                  'dataCriacao',
+                  'ultimoLogin',
+                  'perfil'
+                ]
+              "
+            ></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
     </mat-card>
   </mat-sidenav-content>
 </mat-sidenav-container>
