@@ -1,89 +1,221 @@
-<p-toast position="top-right"></p-toast>
-
-<div class="container">
-  <h2>Relatórios de Horas</h2>
-
-  <form [formGroup]="relatorioForm">
-    <div class="form-group">
-      <label for="projeto">Projeto</label>
-      <p-dropdown
-        id="projeto"
-        formControlName="projeto"
-        [options]="projetos"
-        optionLabel="nome"
-        placeholder="Selecione um projeto"
-      ></p-dropdown>
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidebar -->
+  <mat-sidenav #sidenav mode="side" opened>
+    <!-- Botão para Minimizar/Maximizar -->
+    <div class="sidebar-header">
+      <button
+        mat-icon-button
+        (click)="sidenav.toggle()"
+        style="background-color: rgb(23, 114, 233)"
+      >
+        <mat-icon>{{
+          sidenav.opened ? "chevron_left" : "chevron_right"
+        }}</mat-icon>
+      </button>
     </div>
 
-    <div class="form-group">
-      <label for="atividade">Atividade</label>
-      <p-dropdown
-        id="atividade"
-        formControlName="atividade"
-        [options]="atividades"
-        optionLabel="nome"
-        placeholder="Selecione uma atividade"
-      ></p-dropdown>
-    </div>
+    <!-- Links do Sidebar -->
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard-admin" matTooltip="Dashboard">
+        <mat-icon>dashboard</mat-icon>
+        <span *ngIf="sidenav.opened">Dashboard</span>
+      </a>
+      <a mat-list-item routerLink="/hours" matTooltip="Lançar Horas">
+        <mat-icon>schedule</mat-icon>
+        <span *ngIf="sidenav.opened">Lançar Horas</span>
+      </a>
+      <a mat-list-item routerLink="/reports" matTooltip="Relatórios">
+        <mat-icon>assessment</mat-icon>
+        <span *ngIf="sidenav.opened">Relatórios</span>
+      </a>
+      <a mat-list-item routerLink="/cad-users" matTooltip="Criar Usuário">
+        <mat-icon>person_add</mat-icon>
+        <span *ngIf="sidenav.opened">Criar Usuário</span>
+      </a>
+      <mat-divider></mat-divider>
+    </mat-nav-list>
+  </mat-sidenav>
 
-    <div class="form-group">
-      <label for="usuario">Usuário</label>
-      <p-dropdown
-        id="usuario"
-        formControlName="usuario"
-        [options]="usuarios"
-        optionLabel="nome"
-        placeholder="Selecione um usuário"
-      ></p-dropdown>
-    </div>
-
-    <div class="form-group">
-      <label for="dataInicio">Data Inicial</label>
-      <p-calendar
-        id="dataInicio"
-        formControlName="dataInicio"
-        showIcon
-        dateFormat="dd/mm/yy"
-      ></p-calendar>
-    </div>
-
-    <div class="form-group">
-      <label for="dataFim">Data Final</label>
-      <p-calendar
-        id="dataFim"
-        formControlName="dataFim"
-        showIcon
-        dateFormat="dd/mm/yy"
-      ></p-calendar>
-    </div>
-
+  <!-- Conteúdo Principal -->
+  <mat-sidenav-content>
     <button
-      pButton
-      type="button"
-      label="Buscar Relatórios"
-      (click)="buscarRelatorios()"
-    ></button>
-  </form>
+      *ngIf="!sidenav.opened"
+      mat-fab
+      class="sidebar-toggle-button"
+      style="width: 60px; background-color: rgb(23, 114, 233)"
+      (click)="sidenav.toggle()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <p-toast position="top-right"></p-toast>
 
-  <h3>Resultados</h3>
-  <p-table [value]="resultados" *ngIf="resultados.length > 0">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Projeto</th>
-        <th>Atividade</th>
-        <th>Usuário</th>
-        <th>Horas</th>
-        <th>Data</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-item>
-      <tr>
-        <td>{{ item.projeto }}</td>
-        <td>{{ item.atividade }}</td>
-        <td>{{ item.usuario }}</td>
-        <td>{{ item.horas }}</td>
-        <td>{{ item.data }}</td>
-      </tr>
-    </ng-template>
-  </p-table>
-</div>
+    <div class="container p-4">
+      <h2 class="text-3xl font-bold mb-4">Relatórios de Horas</h2>
+
+      <form
+        [formGroup]="relatorioForm"
+        (ngSubmit)="buscarRelatorios()"
+        class="p-fluid"
+      >
+        <div class="grid">
+          <!-- Projeto -->
+          <div class="col-12 md:col-6 lg:col-4 p-2">
+            <label for="projeto" class="block font-medium mb-2">Projeto</label>
+            <p-dropdown
+              id="projeto"
+              formControlName="projeto"
+              [options]="projetos"
+              optionLabel="nome"
+              placeholder="Selecione um projeto"
+              [showClear]="true"
+              class="w-full"
+            ></p-dropdown>
+            <small
+              *ngIf="
+                relatorioForm.get('projeto')?.invalid &&
+                relatorioForm.get('projeto')?.touched
+              "
+              class="p-error"
+            >
+              Projeto é obrigatório.
+            </small>
+          </div>
+
+          <!-- Atividade -->
+          <div class="col-12 md:col-6 lg:col-4 p-2">
+            <label for="atividade" class="block font-medium mb-2"
+              >Atividade</label
+            >
+            <p-dropdown
+              id="atividade"
+              formControlName="atividade"
+              [options]="atividades"
+              optionLabel="nome"
+              placeholder="Selecione uma atividade"
+              [showClear]="true"
+              class="w-full"
+            ></p-dropdown>
+            <small
+              *ngIf="
+                relatorioForm.get('atividade')?.invalid &&
+                relatorioForm.get('atividade')?.touched
+              "
+              class="p-error"
+            >
+              Atividade é obrigatória.
+            </small>
+          </div>
+
+          <!-- Usuário -->
+          <div class="col-12 md:col-6 lg:col-4 p-2">
+            <label for="usuario" class="block font-medium mb-2">Usuário</label>
+            <p-dropdown
+              id="usuario"
+              formControlName="usuario"
+              [options]="usuarios"
+              optionLabel="nome"
+              placeholder="Selecione um usuário"
+              [showClear]="true"
+              class="w-full"
+            ></p-dropdown>
+            <small
+              *ngIf="
+                relatorioForm.get('usuario')?.invalid &&
+                relatorioForm.get('usuario')?.touched
+              "
+              class="p-error"
+            >
+              Usuário é obrigatório.
+            </small>
+          </div>
+
+          <!-- Data Inicial -->
+          <div class="col-12 md:col-6 lg:col-4 p-2">
+            <label for="dataInicio" class="block font-medium mb-2"
+              >Data Inicial</label
+            >
+            <p-calendar
+              id="dataInicio"
+              formControlName="dataInicio"
+              showIcon
+              dateFormat="dd/mm/yy"
+              [maxDate]="relatorioForm.get('dataFim')?.value"
+              class="w-full"
+            ></p-calendar>
+            <small
+              *ngIf="
+                relatorioForm.get('dataInicio')?.invalid &&
+                relatorioForm.get('dataInicio')?.touched
+              "
+              class="p-error"
+            >
+              Data inicial é obrigatória.
+            </small>
+          </div>
+
+          <!-- Data Final -->
+          <div class="col-12 md:col-6 lg:col-4 p-2">
+            <label for="dataFim" class="block font-medium mb-2"
+              >Data Final</label
+            >
+            <p-calendar
+              id="dataFim"
+              formControlName="dataFim"
+              showIcon
+              dateFormat="dd/mm/yy"
+              [minDate]="relatorioForm.get('dataInicio')?.value"
+              class="w-full"
+            ></p-calendar>
+            <small
+              *ngIf="
+                relatorioForm.get('dataFim')?.invalid &&
+                relatorioForm.get('dataFim')?.touched
+              "
+              class="p-error"
+            >
+              Data final é obrigatória.
+            </small>
+          </div>
+        </div>
+
+        <!-- Botão de Busca -->
+        <div class="col-12 p-2">
+          <button
+            pButton
+            type="submit"
+            label="Buscar Relatórios"
+            [disabled]="relatorioForm.invalid"
+            class="p-button-primary w-full md:w-auto"
+          ></button>
+        </div>
+      </form>
+
+      <!-- Resultados -->
+      <h3 class="text-2xl font-bold mt-6 mb-4">Resultados</h3>
+      <p-table
+        [value]="resultados"
+        *ngIf="resultados.length > 0"
+        styleClass="p-datatable-striped"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Projeto</th>
+            <th>Atividade</th>
+            <th>Usuário</th>
+            <th>Horas</th>
+            <th>Data</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>{{ item.projeto }}</td>
+            <td>{{ item.atividade }}</td>
+            <td>{{ item.usuario }}</td>
+            <td>{{ item.horas }}</td>
+            <td>{{ item.data | date : "dd/MM/yyyy" }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
